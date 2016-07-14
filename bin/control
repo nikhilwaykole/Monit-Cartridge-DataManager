@@ -33,16 +33,22 @@ function start() {
     update_monitrc
     ${OPENSHIFT_MONIT_DIR}bin/monit -c ${OPENSHIFT_MONITRC}
   fi
+  cd ${OPENSHIFT_MONIT_DIR}bin
+  ./monit
 }
 
 function stop() {
   if [ -f "${OPENSHIFT_MONIT_PIDFILE}" ]; then
     echo "Stopping monit cartridge"
-    kill -15 `cat ${OPENSHIFT_MONIT_PIDFILE}`
+    kill -9 `cat ${OPENSHIFT_MONIT_PIDFILE}`
   fi
 }
 
 function restart() {
+  if [ -f "${OPENSHIFT_MONIT_PIDFILE}" ]; then
+    echo "Stopping monit cartridge"
+    kill -9 `cat ${OPENSHIFT_MONIT_PIDFILE}`
+  fi
   if [ -z "${MONIT_ALERT_EMAIL}" ]; then
     echo "ERROR: You need to set the MONIT_ALERT_EMAIL before starting monit."
     echo "       rhc env set MONIT_ALERT_EMAIL=your@email.com"
@@ -59,6 +65,9 @@ function restart() {
     update_monitrc
     ${OPENSHIFT_MONIT_DIR}bin/monit -c ${OPENSHIFT_MONITRC}
   fi
+  cd ${OPENSHIFT_MONIT_DIR}bin
+  ./monit
+
 }
 
 function status() {

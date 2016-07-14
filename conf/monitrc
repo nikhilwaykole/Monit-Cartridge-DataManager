@@ -47,24 +47,25 @@ set httpd port ${OPENSHIFT_MONIT_WEB_PORT} and use address ${OPENSHIFT_MONIT_HTT
 ######################################################################################## 
 #Nodejs Process Monitor
 #
-# check process Nodejs with pidfile ${OPENSHIFT_NODEJS_PID_DIR}cartridge.pid
-#   if failed host ${OPENSHIFT_NODEJS_IP} port ${OPENSHIFT_NODEJS_PORT} for 5 cycles then alert
+ check process Nodejs with pidfile ${OPENSHIFT_NODEJS_PID_DIR}cartridge.pid
+   if failed host ${OPENSHIFT_NODEJS_IP} port ${OPENSHIFT_NODEJS_PORT} for 5 cycles then alert
 # 
 #######################################################################################
 #Inode Usage Monitor
 #
-# check program INODE_QUOTA with path "${OPENSHIFT_MONIT_DIR}bin/scripts/quota-inode.sh"
-#   if status > 90 for 5 cycles then alert
+ check program INODE_QUOTA with path "${OPENSHIFT_MONIT_DIR}bin/scripts/quota-inode.sh"
+   if status > 90 for 5 cycles then alert
 #
 #####################################################################################
 # System Monitor
     check system ${OPENSHIFT_APP_NAME}
 #####################################################################################
-# M/Monit Configuration with server.
-# set mmonit http://<username>:<password>@<m/monit host url>/collector 
-# set httpd port 2812
-# allow <m/monit host url>
- set mmonit http://${MMONIT_USER_PASSWORD}@${MMONIT_SERVER_URL}/collector
- set httpd port ${OPENSHIFT_MONIT_WEB_PORT}
- allow ${MMONIT_SERVER_URL}
+# #M/Monit Configuration with server.
+# #set mmonit http://<username>:<password>@<m/monit host url>/collector 
+# #set httpd port 2812
+# #allow <m/monit host url>
+#
+# set mmonit http://${MMONIT_USER_PASSWORD}@${MMONIT_SERVER_URL}/collector
+# set httpd port ${OPENSHIFT_MONIT_WEB_PORT}
+# allow ${MMONIT_SERVER_URL}
 #####################################################################################
