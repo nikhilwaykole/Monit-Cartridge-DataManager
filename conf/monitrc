@@ -1,0 +1,70 @@
+#####################################################################################
+
+set daemon  60              # check services at 30-seconds intervals
+set idfile ${OPENSHIFT_MONIT_DIR}run/monit.id
+set statefile ${OPENSHIFT_MONIT_DIR}run/monit.state
+set pidfile ${OPENSHIFT_MONIT_DIR}run/monit.pid
+set logfile ${OPENSHIFT_MONIT_DIR}log/monit.log
+
+#####################################################################################
+
+set mailserver localhost
+
+set mail-format { from: monit@${OPENSHIFT_APP_DNS} }
+set alert ${MONIT_ALERT_EMAIL}
+
+#####################################################################################
+
+set eventqueue basedir ${OPENSHIFT_MONIT_DIR}var/events slots 100
+set httpd port ${OPENSHIFT_MONIT_WEB_PORT} and use address ${OPENSHIFT_MONIT_HTTP_IP}
+  allow admin:${OPENSHIFT_MONIT_PASSWORD}
+  allow ${OPENSHIFT_MONIT_HTTP_IP}
+
+#####################################################################################
+# Cartridge Memory(RAM) Monitor
+
+  check program MEMORY_QUOTA with path "${OPENSHIFT_MONIT_DIR}bin/scripts/cgroups-memory-check.sh"
+    if status > 90 for 5 cycles then alert
+
+#####################################################################################
+# Cartridge Storage(Disk) Monitor
+  
+  check program STORAGE_QUOTA with path "${OPENSHIFT_MONIT_DIR}bin/scripts/quota-check.sh"
+    if status > 90 for 5 cycles then alert
+
+######################################################################################
+# Mongodb Process Monitor 
+#
+# check process MongoDB with pidfile ${OPENSHIFT_MONGODB_DIR}pid/mongodb.pid
+#   if failed host ${OPENSHIFT_MONGODB_DB_HOST} port ${OPENSHIFT_MONGODB_DB_PORT} for 5 cycles then alert
+#
+#######################################################################################
+# Mysql Process Monitor 
+#
+# check process MySql with pidfile ${OPENSHIFT_MYSQL_DIR}pid/mysql.pid
+#   if failed host ${OPENSHIFT_MYSQL_DB_HOST} port ${OPENSHIFT_MYSQL_DB_PORT} for 5 cycles then alert
+#
+######################################################################################## 
+#Nodejs Process Monitor
+#
+# check process Nodejs with pidfile ${OPENSHIFT_NODEJS_PID_DIR}cartridge.pid
+#   if failed host ${OPENSHIFT_NODEJS_IP} port ${OPENSHIFT_NODEJS_PORT} for 5 cycles then alert
+# 
+#######################################################################################
+#Inode Usage Monitor
+#
+# check program INODE_QUOTA with path "${OPENSHIFT_MONIT_DIR}bin/scripts/quota-inode.sh"
+#   if status > 90 for 5 cycles then alert
+#
+#####################################################################################
+# System Monitor
+    check system ${OPENSHIFT_APP_NAME}
+#####################################################################################
+# M/Monit Configuration with server.
+# set mmonit http://<username>:<password>@<m/monit host url>/collector 
+# set httpd port 2812
+# allow <m/monit host url>
+ set mmonit http://${MMONIT_USER_PASSWORD}@${MMONIT_SERVER_URL}/collector
+ set httpd port ${OPENSHIFT_MONIT_WEB_PORT}
+ allow ${MMONIT_SERVER_URL}
+#####################################################################################
