@@ -58,7 +58,7 @@ set httpd port ${OPENSHIFT_MONIT_WEB_PORT} and use address ${OPENSHIFT_MONIT_HTT
 #
 #####################################################################################
 # System Monitor
-    check system ${OPENSHIFT_APP_NAME}
+    check system ${OPENSHIFT_APP_DNS}
 #####################################################################################
 # #M/Monit Configuration with server.
 # #set mmonit http://<username>:<password>@<m/monit host url>/collector 
