@@ -47,7 +47,7 @@ set httpd port ${OPENSHIFT_MONIT_WEB_PORT} and use address ${OPENSHIFT_MONIT_HTT
 ######################################################################################## 
 #Nodejs Process Monitor
 #
- check process Nodejs with pidfile ${OPENSHIFT_NODEJS_PID_DIR}cartridge.pid
+ check process Nodejs with pidfile ${OPENSHIFT_NODEJS_DIR}pid/nodejs.pid
    if failed host ${OPENSHIFT_NODEJS_IP} port ${OPENSHIFT_NODEJS_PORT} for 5 cycles then alert
 # 
 #######################################################################################
@@ -65,7 +65,7 @@ set httpd port ${OPENSHIFT_MONIT_WEB_PORT} and use address ${OPENSHIFT_MONIT_HTT
 # #set httpd port 2812
 # #allow <m/monit host url>
 #
-# set mmonit http://${MMONIT_USER_PASSWORD}@${MMONIT_SERVER_URL}/collector
-# set httpd port ${OPENSHIFT_MONIT_WEB_PORT}
-# allow ${MMONIT_SERVER_URL}
+ set mmonit http://${MMONIT_USER_PASSWORD}@${MMONIT_SERVER_URL}/collector
+ set httpd port ${OPENSHIFT_MONIT_WEB_PORT}
+ allow ${MMONIT_SERVER_URL}
 #####################################################################################

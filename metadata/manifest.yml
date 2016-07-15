@@ -14,7 +14,7 @@ Vendor: monit
 Categories:
 - service
 - embedded
-Website: http://collectd.org
+Website: https://www.mmonit.com/
 Provides:
 - monit-5.18
 - monit
