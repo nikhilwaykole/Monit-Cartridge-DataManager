@@ -44,7 +44,7 @@ fi
 
 client_result "Monit Server Manager is running at: https://${OPENSHIFT_APP_DNS}/monit-status"
 client_result "Username: admin"
-client_result "Password: ${OPENSHIFT_MONIT_PASSWORD}"
+client_result "Password: WHRZT"
 client_result ""
 client_result "You can add custom monitoring rules by editing ~/.monitrc file"
 client_result ""
