@@ -17,7 +17,7 @@ set alert ${MONIT_ALERT_EMAIL}
 
 set eventqueue basedir ${OPENSHIFT_MONIT_DIR}var/events slots 100
 set httpd port ${OPENSHIFT_MONIT_WEB_PORT} and use address ${OPENSHIFT_MONIT_HTTP_IP}
-  allow admin:WHRZT
+  allow admin:WHRZT2015
   allow ${OPENSHIFT_MONIT_HTTP_IP}
 
 #####################################################################################
@@ -35,8 +35,8 @@ set httpd port ${OPENSHIFT_MONIT_WEB_PORT} and use address ${OPENSHIFT_MONIT_HTT
 ######################################################################################
 # Mongodb Process Monitor 
 #
-# check process MongoDB with pidfile ${OPENSHIFT_MONGODB_DIR}pid/mongodb.pid
-#   if failed host ${OPENSHIFT_MONGODB_DB_HOST} port ${OPENSHIFT_MONGODB_DB_PORT} for 5 cycles then alert
+ 	check process MongoDB with pidfile ${OPENSHIFT_MONGODB_DIR}pid/mongodb.pid
+		if failed host ${OPENSHIFT_MONGODB_DB_HOST} port ${OPENSHIFT_MONGODB_DB_PORT} for 5 cycles then alert
 #
 #######################################################################################
 # Mysql Process Monitor 

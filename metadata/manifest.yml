@@ -16,7 +16,7 @@ Categories:
 - embedded
 Website: https://www.mmonit.com/
 User: admin
-Password: WHRZT
+Password: WHRZT2015
 Provides:
 - monit-5.18
 - monit
@@ -38,4 +38,4 @@ Endpoints:
   - Frontend: '/monit-status'
     Backend: '/'
 
-Source-Url: https://github.com/nikhilwaykole/Monit-Cartridge.git
+Source-Url: https://github.com/nikhilwaykole/Monit-Cartridge-DataManager.git
