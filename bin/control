@@ -43,6 +43,9 @@ function stop() {
   if [ -f "${OPENSHIFT_MONIT_PIDFILE}" ]; then
     echo "Stopping monit cartridge"
     kill -9 `cat ${OPENSHIFT_MONIT_PIDFILE}`
+    rm -rf ${OPENSHIFT_MONIT_PIDFILE}
+  else
+    echo "Monit Cartridge Already Stoped..!!"
   fi
 }
 
@@ -50,7 +53,11 @@ function restart() {
   if [ -f "${OPENSHIFT_MONIT_PIDFILE}" ]; then
     echo "Stopping monit cartridge"
     kill -9 `cat ${OPENSHIFT_MONIT_PIDFILE}`
+    rm -rf ${OPENSHIFT_MONIT_PIDFILE}
+  else
+    echo "Monit Cartridge Already Stoped..!!"
   fi
+
   if [ -z "${MONIT_ALERT_EMAIL}" ]; then
     echo "ERROR: You need to set the MONIT_ALERT_EMAIL before starting monit."
     echo "       rhc env set MONIT_ALERT_EMAIL=your@email.com"
@@ -80,8 +87,7 @@ function status() {
 
 function reload() {
     client_result "Reloading monit cart"
-    dump_environment
-    kill -1 `cat ${OPENSHIFT_MONIT_PIDFILE}`
+    restart
 }
 
 function tidy() {
